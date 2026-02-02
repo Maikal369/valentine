@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Anurag ❤️ Edisa</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  overflow: hidden;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  background: white;
+  padding: 25px;
+  border-radius: 22px;
+  width: 360px;
+  text-align: center;
+  box-shadow: 0 0 35px rgba(0,0,0,0.25);
+  animation: pop 0.6s ease;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.photos {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.photos img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ff4d6d;
+}
+
+button {
+  padding: 12px 26px;
+  font-size: 16px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  margin: 8px;
+}
+
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+#no {
+  background: #ccc;
+  position: absolute;
+}
+
+input {
+  padding: 10px;
+  width: 85%;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.hearts span {
+  position: absolute;
+  top: -10px;
+  font-size: 20px;
+  animation: fall linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 BACKGROUND MUSIC -->
+<audio id="music" src="E music.mp3" loop></audio>
+
+<!-- 💕 FLOATING HEARTS -->
+<div class="hearts" id="hearts"></div>
+
+<div class="container">
+
+<!-- 💘 QUESTION -->
+<div class="box" id="question">
+  <div class="photos">
+    <img src="anurag.jpg">
+    <img src="edisa.jpg">
+  </div>
+  <h2>Edisa 💖</h2>
+  <p>Will you be my Valentine? 🥺👉👈</p>
+  <button id="yes" onclick="yesClick()">Yes 💕</button>
+  <button id="no" onmouseover="moveNo()">No 😒</button>
+</div>
+
+<!-- 😍 RESULT -->
+<div class="box hidden" id="result">
+  <h3>Anurag ❤️ Edisa</h3>
+  <p>Relationship status updated 😌</p>
+  <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" width="200">
+  <br><br>
+  <button onclick="showGolden()">Continue 💌</button>
+</div>
+
+<!-- ✨ GOLDEN WORDS -->
+<div class="box hidden" id="golden">
+  <h3>Type the three golden words 💫</h3>
+  <input id="words" placeholder="Type here...">
+  <br><br>
+  <button onclick="checkWords()">Submit 💖</button>
+</div>
+
+<!-- 💌 LOVE LETTER -->
+<div class="box hidden" id="letter">
+  <h3>I love you too ❤️</h3>
+  <p id="text"></p>
+</div>
+
+</div>
+
+<script>
+/* NO BUTTON MADNESS */
+let noTexts = ["Hey stop 😤","You’re testing my patience 😒","Okay this is getting rude 😭"];
+let noIndex = 0;
+
+function moveNo() {
+  let no = document.getElementById("no");
+  no.innerText = noTexts[noIndex % noTexts.length];
+  noIndex++;
+  no.style.left = Math.random() * (window.innerWidth - 120) + "px";
+  no.style.top = Math.random() * (window.innerHeight - 120) + "px";
+}
+
+/* YES CLICK */
+function yesClick() {
+  document.getElementById("music").play();
+  document.getElementById("question").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+}
+
+/* CONTINUE */
+function showGolden() {
+  document.getElementById("result").classList.add("hidden");
+  document.getElementById("golden").classList.remove("hidden");
+}
+
+/* CHECK WORDS */
+function checkWords() {
+  let val = document.getElementById("words").value.toLowerCase();
+  if (val.includes("i love you")) {
+    document.getElementById("golden").classList.add("hidden");
+    document.getElementById("letter").classList.remove("hidden");
+    typeLetter();
+  }
+}
+
+/* LOVE LETTER TYPING */
+let letter = `Edisa 💖,
+
+From the moment you came into my life,
+everything became softer, warmer, brighter.
+
+No distance, no time, no world
+could ever change what I feel for you.
+
+If love had a face,
+it would look like you.
+
+Forever yours,
+Anurag ❤️`;
+
+let i = 0;
+function typeLetter() {
+  let p = document.getElementById("text");
+  if (i < letter.length) {
+    p.innerHTML += letter.charAt(i);
+    i++;
+    setTimeout(typeLetter, 55);
+  }
+}
+
+/* HEARTS */
+for (let i = 0; i < 35; i++) {
+  let h = document.createElement("span");
+  h.innerHTML = "💖";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = 5 + Math.random() * 6 + "s";
+  h.style.fontSize = 14 + Math.random() * 22 + "px";
+  document.getElementById("hearts").appendChild(h);
+}
+</script>
+
+</body>
+</html>
